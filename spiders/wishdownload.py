@@ -13,7 +13,7 @@ class WishdownloadSpider(RedisSpider):
     redis_key = 'products'
 
     def parse(self, response):
-        match = re.search("\['mainContestObj'\] = ({.*?});", response.body)
+        match = re.search("\['mainContestObj'\] = ({.*?});\n", response.body)
         if match:
             item = WfchItem()
             item['json'] = match.group(1)
