@@ -24,8 +24,7 @@ class WfchPipeline(object):
         port = settings.get('MONGO_PORT', MONGO_PORT)
 
         client = MongoClient(host=host, port=port)
-        db = client.wish
-        return cls(db)
+        return cls(client)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -35,5 +34,7 @@ class WfchPipeline(object):
         if item is None or item['json'] is None or item['json'] == '':
             raise DropItem("none item found.")
         else:
-            self.db.products.insert_one(json.loads(item['json']))
+            data = json.loads(item['json'])
+            data['_id'] = data['id']
+            self.db.products.insert_one(data)
             return item
