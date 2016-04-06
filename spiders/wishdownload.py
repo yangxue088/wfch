@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 import re
 from scrapy_redis.spiders import RedisSpider
 
-from ..items import WfchItem
+from items import WfchItem
 
 
 class WishdownloadSpider(RedisSpider):
@@ -17,6 +19,8 @@ class WishdownloadSpider(RedisSpider):
         self.redis_key = redis_key
 
     def parse(self, response):
+        self.log('crawl page: {}'.format(response.url), logging.INFO)
+
         match = re.search("\['mainContestObj'\] = ({.*?});\n", response.body)
         if match:
             item = WfchItem()
