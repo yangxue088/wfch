@@ -71,7 +71,7 @@ class WishRatingSpider(RedisSpider):
     def feed_rating_ajax(self, product_id, offset=0):
         data = {
             'product_id': product_id,
-            'count': '30',
+            'count': '66',
             'start': str(offset),
             '_buckets': '',
             '_experiments': '',
@@ -107,7 +107,7 @@ class WishRatingSpider(RedisSpider):
                     no_more_ratings = True
                     break
 
-                self.dicts[product_id].append({'time': time, 'rating': result['rating']})
+                self.dicts[product_id].append({'time': time, 'score': result['rating']})
 
             if not no_more_ratings:
                 return self.feed_rating_ajax(product_id, next_offset)
