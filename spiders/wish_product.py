@@ -5,7 +5,7 @@ import logging
 import re
 from scrapy_redis.spiders import RedisSpider
 
-from items import WfchItem
+from items import ProductItem
 
 
 class WishdownloadSpider(RedisSpider):
@@ -23,6 +23,6 @@ class WishdownloadSpider(RedisSpider):
 
         match = re.search("\['mainContestObj'\] = ({.*?});\n", response.body)
         if match:
-            item = WfchItem()
+            item = ProductItem()
             item['json'] = match.group(1)
             return item

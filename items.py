@@ -8,8 +8,11 @@
 import scrapy
 
 
-class WfchItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+class ProductItem(scrapy.Item):
     json = scrapy.Field()
 
+
+class RatingItem(scrapy.Item):
+    id = scrapy.Field()
+
+    rating = scrapy.Field()
